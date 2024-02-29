@@ -26,6 +26,11 @@ public class MemoService {
         MemoResponseDto memoResponseDto = memoRepository.saveMemo(memo);
         return memoResponseDto;
     }
+
+    public MemoResponseDto findMemoById(Long id) {
+        MemoResponseDto memoById = memoRepository.findMemoById(id);
+        return memoById;
+    }
     //목록 전체 조회
     //글 저장
     //메모 아이디로 조회

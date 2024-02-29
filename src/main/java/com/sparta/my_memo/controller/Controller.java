@@ -41,10 +41,11 @@ public class Controller {
         MemoResponseDto memoResponseDto = memoService.saveUserAndMemo(user, memo);
         return memoResponseDto;
     }
-
-    public String getSelectedMemo(String memo_id) {
+    @GetMapping("/board/{id}")
+    public MemoResponseDto getSelectedMemo(@PathVariable Long id) {
         //Memo id로 조회
-        return null;
+        MemoResponseDto memoResponseDto = memoService.findMemoById(id);
+        return memoResponseDto;
     }
 
     public String updateMemo(String memo_id, String name, String password, String content) {
