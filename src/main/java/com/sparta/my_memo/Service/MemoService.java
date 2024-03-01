@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.sparta.my_memo.constant.Message.*;
+
 @Service
 @AllArgsConstructor
 public class MemoService {
@@ -28,40 +30,40 @@ public class MemoService {
 
     public MemoResponseDto findMemoById(Long id) {
         if (id == null)
-            throw new IllegalArgumentException("Null이 입력되었습니다");
+            throw new IllegalArgumentException(NULL_INPUT_VALUE);
 
         Optional<MemoResponseDto> memoById = memoRepository.findMemoById(id);
         if (memoById.isPresent())
             return memoById.get();
 
-        throw new IllegalArgumentException("찾으시는 메모가 존재하지 않습니다");
+        throw new IllegalArgumentException(WRONG_MEMO_NUMBER);
     }
 
     public MemoResponseDto updateMemo(Long id, MemoRequestDto memoRequestDto) {
         Optional<MemoResponseDto> memoById = memoRepository.findMemoById(id);
         if (memoById.isPresent()) {
             boolean isCorrectUser = checkAvailable(id, memoRequestDto);
-            if(isCorrectUser) {
-                MemoResponseDto memoResponseDto = memoRepository.update(id,memoRequestDto);
+            if (isCorrectUser) {
+                MemoResponseDto memoResponseDto = memoRepository.update(id, memoRequestDto);
                 return memoResponseDto;
             }
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
+            throw new IllegalArgumentException(WRONG_PASSWORD);
         }
 
-        throw new IllegalArgumentException("찾으시는 메모가 존재하지 않습니다");
+        throw new IllegalArgumentException(WRONG_MEMO_NUMBER);
     }
 
-    public void deleteMemo(Long id, MemoRequestDto memoRequestDto) {
+    public String deleteMemo(Long id, MemoRequestDto memoRequestDto) {
         Optional<MemoResponseDto> memoById = memoRepository.findMemoById(id);
-        if(memoById.isPresent()){
-            boolean isCorrectUser = checkAvailable(id,memoRequestDto);
-            if(isCorrectUser){
+        if (memoById.isPresent()) {
+            boolean isCorrectUser = checkAvailable(id, memoRequestDto);
+            if (isCorrectUser) {
                 memoRepository.delete(id);
-                return;
+                return DELETE_COMPLETE;
             }
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
+            throw new IllegalArgumentException(WRONG_PASSWORD);
         }
-        throw new IllegalArgumentException("해당하는 게시물이 없습니다");
+        throw new IllegalArgumentException(WRONG_MEMO_NUMBER);
 
     }
 
@@ -72,9 +74,4 @@ public class MemoService {
     }
 
 
-
-    //목록 전체 조회
-    //글 저장
-    //메모 아이디로 조회
-    //
 }

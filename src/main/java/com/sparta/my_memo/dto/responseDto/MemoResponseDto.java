@@ -3,10 +3,8 @@ package com.sparta.my_memo.dto.responseDto;
 import com.sparta.my_memo.entity.Memo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Getter

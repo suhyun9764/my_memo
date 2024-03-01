@@ -21,16 +21,16 @@ public class MemoRepositoryImpl implements MemoRepository {
 
     @Override
     public MemoResponseDto saveMemo(Memo memo) {
-        Long maxId = memoMap.size()>0? Collections.max(memoMap.keySet())+1:1;
+        Long maxId = memoMap.size() > 0 ? Collections.max(memoMap.keySet()) + 1 : 1;
         memo.setId(maxId);
-        memoMap.put(memo.getId(),memo);
+        memoMap.put(memo.getId(), memo);
         MemoResponseDto memoResponseDto = new MemoResponseDto(memo);
         return memoResponseDto;
     }
 
     @Override
     public Optional<MemoResponseDto> findMemoById(Long id) {
-        if(memoMap.containsKey(id)) {
+        if (memoMap.containsKey(id)) {
             Memo memo = memoMap.get(id);
             MemoResponseDto memoResponseDto = new MemoResponseDto(memo);
             return Optional.of(memoResponseDto);
@@ -38,6 +38,7 @@ public class MemoRepositoryImpl implements MemoRepository {
 
         return Optional.empty();
     }
+
     @Override
     public boolean checkAvailable(Long id, MemoRequestDto memoRequestDto) {
         Memo memo = memoMap.get(id);
@@ -45,7 +46,7 @@ public class MemoRepositoryImpl implements MemoRepository {
     }
 
     @Override
-    public MemoResponseDto update(Long id,MemoRequestDto memoRequestDto) {
+    public MemoResponseDto update(Long id, MemoRequestDto memoRequestDto) {
         Memo memo = memoMap.get(id);
         memo.update(memoRequestDto);
         MemoResponseDto memoResponseDto = new MemoResponseDto(memo);
