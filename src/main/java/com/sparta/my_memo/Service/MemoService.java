@@ -51,10 +51,26 @@ public class MemoService {
         throw new IllegalArgumentException("찾으시는 메모가 존재하지 않습니다");
     }
 
+    public void deleteMemo(Long id, MemoRequestDto memoRequestDto) {
+        Optional<MemoResponseDto> memoById = memoRepository.findMemoById(id);
+        if(memoById.isPresent()){
+            boolean isCorrectUser = checkAvailable(id,memoRequestDto);
+            if(isCorrectUser){
+                memoRepository.delete(id);
+                return;
+            }
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
+        }
+        throw new IllegalArgumentException("해당하는 게시물이 없습니다");
+
+    }
+
+
     private boolean checkAvailable(Long id, MemoRequestDto memoRequestDto) {
         boolean isAvailable = memoRepository.checkAvailable(id, memoRequestDto);
         return isAvailable;
     }
+
 
 
     //목록 전체 조회

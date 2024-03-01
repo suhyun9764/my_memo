@@ -3,13 +3,11 @@ package com.sparta.my_memo.controller;
 import com.sparta.my_memo.Service.MemoService;
 import com.sparta.my_memo.dto.requestDto.MemoRequestDto;
 import com.sparta.my_memo.dto.responseDto.MemoResponseDto;
-import com.sparta.my_memo.entity.Memo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -51,8 +49,13 @@ public class Controller {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
-
-    public String deleteMemo(String memo_id, String password) {
-        return null;
+    @DeleteMapping("/board/{id}")
+    public ResponseEntity deleteMemo(@PathVariable Long id, @RequestBody MemoRequestDto memoRequestDto) {
+        try {
+            memoService.deleteMemo(id,memoRequestDto);
+            return ResponseEntity.ok("정상적으로 삭제되었습니다");
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

@@ -17,6 +17,5 @@ public interface MemoRepository {
     Optional<MemoResponseDto> findMemoById(Long id);
     boolean checkAvailable(Long id, MemoRequestDto memoRequestDto);
     MemoResponseDto update(Long id,MemoRequestDto memoRequestDto);
-
-
+    void delete(Long id);
 }

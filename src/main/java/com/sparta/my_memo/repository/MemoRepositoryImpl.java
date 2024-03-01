@@ -52,4 +52,9 @@ public class MemoRepositoryImpl implements MemoRepository {
         return memoResponseDto;
     }
 
+    @Override
+    public void delete(Long id) {
+        memoMap.remove(id);
+    }
+
 }
