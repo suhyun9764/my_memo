@@ -38,12 +38,18 @@ public class MemoRepositoryImpl implements MemoRepository {
 
         return Optional.empty();
     }
+    @Override
+    public boolean checkAvailable(Long id, MemoRequestDto memoRequestDto) {
+        Memo memo = memoMap.get(id);
+        return memo.checkPassword(memoRequestDto);
+    }
 
     @Override
-    public Optional<MemoResponseDto> updateMemo(Long id, MemoRequestDto memoRequestDto) {
+    public MemoResponseDto update(Long id,MemoRequestDto memoRequestDto) {
         Memo memo = memoMap.get(id);
         memo.update(memoRequestDto);
         MemoResponseDto memoResponseDto = new MemoResponseDto(memo);
-        return Optional.of(memoResponseDto);
+        return memoResponseDto;
     }
+
 }

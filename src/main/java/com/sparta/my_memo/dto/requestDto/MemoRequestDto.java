@@ -2,8 +2,10 @@ package com.sparta.my_memo.dto.requestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class MemoRequestDto {
     private String title;
@@ -11,9 +13,4 @@ public class MemoRequestDto {
     private String writer;
     private String password;
 
-//    public MemoRequestDto(String title, String content, String writer) {
-//        this.title = title;
-//        this.content = content;
-//        this.writer = writer;
-//    }
 }

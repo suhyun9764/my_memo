@@ -15,8 +15,8 @@ public interface MemoRepository {
     MemoResponseDto saveMemo(Memo memo);
     // 게시글 아이디로 조회
     Optional<MemoResponseDto> findMemoById(Long id);
+    boolean checkAvailable(Long id, MemoRequestDto memoRequestDto);
+    MemoResponseDto update(Long id,MemoRequestDto memoRequestDto);
 
-    Optional<MemoResponseDto> updateMemo(Long id, MemoRequestDto memoRequestDto);
-    //
 
 }

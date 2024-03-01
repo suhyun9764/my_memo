@@ -39,14 +39,18 @@ public class Controller {
             MemoResponseDto memoResponseDto = memoService.findMemoById(id);
             return memoResponseDto;
         }catch (IllegalArgumentException e){
-            throw new IllegalArgumentException("invalid value");
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
-//    @PutMapping("/board/{id}")
-//    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto memoRequestDto ) {
-//        Optional<MemoResponseDto> updatedMemo = memoService.updateMemo(id,memoRequestDto);
-//        return updatedMemo.get();
-//    }
+    @PutMapping("/board/{id}")
+    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto memoRequestDto ) {
+        try{
+            MemoResponseDto updatedMemo = memoService.updateMemo(id,memoRequestDto);
+            return updatedMemo;
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
 
     public String deleteMemo(String memo_id, String password) {
         return null;

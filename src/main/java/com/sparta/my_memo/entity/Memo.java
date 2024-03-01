@@ -29,8 +29,13 @@ public class Memo {
         this.id = id;
     }
 
+    public boolean checkPassword(MemoRequestDto memoRequestDto){
+        return this.password.equals(memoRequestDto.getPassword());
+    }
+
     public void update(MemoRequestDto memoRequestDto) {
         this.title = memoRequestDto.getTitle();
         this.content = memoRequestDto.getContent();
+        this.writer = memoRequestDto.getWriter();
     }
 }

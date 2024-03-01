@@ -27,34 +27,34 @@ public class MemoService {
     }
 
     public MemoResponseDto findMemoById(Long id) {
-        if(id == null)
+        if (id == null)
             throw new IllegalArgumentException("Null이 입력되었습니다");
 
         Optional<MemoResponseDto> memoById = memoRepository.findMemoById(id);
-        if(memoById.isPresent())
+        if (memoById.isPresent())
             return memoById.get();
 
         throw new IllegalArgumentException("찾으시는 메모가 존재하지 않습니다");
     }
 
-//    public Optional<MemoResponseDto> updateMemo(Long id, RequestDto requestDto) {
-//        UUID writerId = findWriterId(id);
-//        boolean isAvailable = checkAvailable(requestDto, writerId);
-//        if(isAvailable){
-//            userRepository.updateUser(writerId,requestDto);
-//            Optional<MemoResponseDto> memoResponseDto = memoRepository.updateMemo(id, requestDto);
-//            return memoResponseDto;
-//        }else{
-//            throw new IllegalArgumentException("비밀번호가 틀렸습니다");
-//        }
-//    }
-//
-//    private boolean checkAvailable(RequestDto requestDto, UUID writerId) {
-//        String password = requestDto.getPassword();
-//        boolean isAvailable = userRepository.checkAvailable(writerId, password);
-//        return isAvailable;
-//    }
+    public MemoResponseDto updateMemo(Long id, MemoRequestDto memoRequestDto) {
+        Optional<MemoResponseDto> memoById = memoRepository.findMemoById(id);
+        if (memoById.isPresent()) {
+            boolean isCorrectUser = checkAvailable(id, memoRequestDto);
+            if(isCorrectUser) {
+                MemoResponseDto memoResponseDto = memoRepository.update(id,memoRequestDto);
+                return memoResponseDto;
+            }
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
+        }
 
+        throw new IllegalArgumentException("찾으시는 메모가 존재하지 않습니다");
+    }
+
+    private boolean checkAvailable(Long id, MemoRequestDto memoRequestDto) {
+        boolean isAvailable = memoRepository.checkAvailable(id, memoRequestDto);
+        return isAvailable;
+    }
 
 
     //목록 전체 조회
