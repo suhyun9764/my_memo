@@ -14,11 +14,14 @@ public class Memo {
     private String title;
     private LocalDate date;
     private String content;
-    private UUID writerId;
+    private String writer;
+    private String password;
 
     public Memo(MemoRequestDto memoRequestDto) {
         this.title = memoRequestDto.getTitle();
         this.content = memoRequestDto.getContent();
+        this.writer = memoRequestDto.getWriter();
+        this.password = memoRequestDto.getPassword();
         this.date = LocalDate.now();
     }
 
@@ -26,7 +29,8 @@ public class Memo {
         this.id = id;
     }
 
-    public void setWriterId(UUID writerId) {
-        this.writerId = writerId;
+    public void update(MemoRequestDto memoRequestDto) {
+        this.title = memoRequestDto.getTitle();
+        this.content = memoRequestDto.getContent();
     }
 }

@@ -1,5 +1,6 @@
 package com.sparta.my_memo.repository;
 
+import com.sparta.my_memo.dto.requestDto.MemoRequestDto;
 import com.sparta.my_memo.dto.responseDto.MemoResponseDto;
 import com.sparta.my_memo.entity.Memo;
 import org.springframework.stereotype.Repository;
@@ -30,5 +31,13 @@ public class MemoRepositoryImpl implements MemoRepository {
     public MemoResponseDto findMemoById(Long id) {
         MemoResponseDto memoResponseDto = new MemoResponseDto(memoMap.get(id));
         return memoResponseDto;
+    }
+
+    @Override
+    public Optional<MemoResponseDto> updateMemo(Long id, MemoRequestDto memoRequestDto) {
+        Memo memo = memoMap.get(id);
+        memo.update(memoRequestDto);
+        MemoResponseDto memoResponseDto = new MemoResponseDto(memo);
+        return Optional.of(memoResponseDto);
     }
 }

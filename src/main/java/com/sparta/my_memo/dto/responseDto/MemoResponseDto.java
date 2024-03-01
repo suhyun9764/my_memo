@@ -15,13 +15,13 @@ public class MemoResponseDto {
     private String title;
     private LocalDate date;
     private String content;
-    private UUID writerId;
+    private String writer;
 
     public MemoResponseDto(Memo memo) {
         this.id = memo.getId();
         this.title = memo.getTitle();
         this.date = memo.getDate();
         this.content = memo.getContent();
-        this.writerId = memo.getWriterId();
+        this.writer = memo.getWriter();
     }
 }
