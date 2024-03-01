@@ -14,7 +14,8 @@ public class MemoRepositoryImpl implements MemoRepository {
     @Override
     public List<MemoResponseDto> findAllMemo() {
         List<MemoResponseDto> memoList = memoMap.values().stream()
-                .map(MemoResponseDto::new).toList();
+                .map(MemoResponseDto::new).sorted(Comparator.comparing(MemoResponseDto::getId).reversed())
+                .toList();
         return memoList;
     }
 
