@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.sparta.my_memo.constant.Message.DELETE_COMPLETE;
-
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")

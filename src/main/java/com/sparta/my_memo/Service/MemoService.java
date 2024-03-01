@@ -29,9 +29,6 @@ public class MemoService {
     }
 
     public MemoResponseDto findMemoById(Long id) {
-        if (id == null)
-            throw new IllegalArgumentException(NULL_INPUT_VALUE);
-
         Optional<MemoResponseDto> memoById = memoRepository.findMemoById(id);
         if (memoById.isPresent())
             return memoById.get();
