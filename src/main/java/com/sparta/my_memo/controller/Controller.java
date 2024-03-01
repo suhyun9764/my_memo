@@ -5,9 +5,11 @@ import com.sparta.my_memo.dto.requestDto.MemoRequestDto;
 import com.sparta.my_memo.dto.responseDto.MemoResponseDto;
 import com.sparta.my_memo.entity.Memo;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -33,13 +35,16 @@ public class Controller {
     @GetMapping("/board/{id}")
     public MemoResponseDto getSelectedMemo(@PathVariable Long id) {
         //Memo id로 조회
-        MemoResponseDto memoResponseDto = memoService.findMemoById(id);
-        return memoResponseDto;
+        try {
+            MemoResponseDto memoResponseDto = memoService.findMemoById(id);
+            return memoResponseDto;
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("invalid value");
+        }
     }
 //    @PutMapping("/board/{id}")
-//    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody RequestDto requestDto ) {
-//        //Memo id에 해당하는 사용자의 비밀번호가 같은지 확인
-//        Optional<MemoResponseDto> updatedMemo = memoService.updateMemo(id,requestDto);
+//    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto memoRequestDto ) {
+//        Optional<MemoResponseDto> updatedMemo = memoService.updateMemo(id,memoRequestDto);
 //        return updatedMemo.get();
 //    }
 

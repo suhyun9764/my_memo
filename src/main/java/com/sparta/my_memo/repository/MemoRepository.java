@@ -14,7 +14,7 @@ public interface MemoRepository {
     // 게시글 등록
     MemoResponseDto saveMemo(Memo memo);
     // 게시글 아이디로 조회
-    MemoResponseDto findMemoById(Long id);
+    Optional<MemoResponseDto> findMemoById(Long id);
 
     Optional<MemoResponseDto> updateMemo(Long id, MemoRequestDto memoRequestDto);
     //

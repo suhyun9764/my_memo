@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -28,8 +27,14 @@ public class MemoService {
     }
 
     public MemoResponseDto findMemoById(Long id) {
-        MemoResponseDto memoById = memoRepository.findMemoById(id);
-        return memoById;
+        if(id == null)
+            throw new IllegalArgumentException("Null이 입력되었습니다");
+
+        Optional<MemoResponseDto> memoById = memoRepository.findMemoById(id);
+        if(memoById.isPresent())
+            return memoById.get();
+
+        throw new IllegalArgumentException("찾으시는 메모가 존재하지 않습니다");
     }
 
 //    public Optional<MemoResponseDto> updateMemo(Long id, RequestDto requestDto) {

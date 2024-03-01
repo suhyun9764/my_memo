@@ -29,9 +29,14 @@ public class MemoRepositoryImpl implements MemoRepository {
     }
 
     @Override
-    public MemoResponseDto findMemoById(Long id) {
-        MemoResponseDto memoResponseDto = new MemoResponseDto(memoMap.get(id));
-        return memoResponseDto;
+    public Optional<MemoResponseDto> findMemoById(Long id) {
+        if(memoMap.containsKey(id)) {
+            Memo memo = memoMap.get(id);
+            MemoResponseDto memoResponseDto = new MemoResponseDto(memo);
+            return Optional.of(memoResponseDto);
+        }
+
+        return Optional.empty();
     }
 
     @Override
